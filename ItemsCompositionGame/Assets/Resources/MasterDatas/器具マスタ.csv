@@ -1,0 +1,5 @@
+#器具ＩＤ,#器具名,#調理できるアイテムのカテゴリ,#使用解禁のために必要な総合成回数,#アイコン,#deleted
+cookware_id,name,cookable_category,need_cc,icon,deleted
+1,鍋,1,0,nabe,0
+2,まな板,1,10,manaita,0
+3,フライパン,1,25,huraipan,0
