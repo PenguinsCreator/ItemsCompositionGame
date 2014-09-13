@@ -6,7 +6,7 @@ public class GameDefine {
 
     // itemCategoraize
     public static string[] CATEGORAIZE_ATLAS_NAME = new string[]{
-        "NONE",
+        "cookware",
         "material",
         "tresure",
         "animal",

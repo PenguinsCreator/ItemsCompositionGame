@@ -150,6 +150,9 @@ public class CommonScrollList : ScrollListPrepare {
             if (obj != null) {
                 // 作成したオブジェクトに情報を乗せる
                 obj.transform.parent = m_Grid.transform;
+                // 作成したオブジェクトのTransformが壊れる場合があるのでプレハブに合わせる
+                obj.transform.position = new Vector3(m_prefabObject.transform.position.x, m_prefabObject.transform.position.y, m_prefabObject.transform.position.z);
+                obj.transform.localScale = new Vector3(m_prefabObject.transform.localScale.x, m_prefabObject.transform.localScale.y, m_prefabObject.transform.localScale.z);
                 obj.name = m_prefabObject.name + i;
 
                 // 必要情報を保持

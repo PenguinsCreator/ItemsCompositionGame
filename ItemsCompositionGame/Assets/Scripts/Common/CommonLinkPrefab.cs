@@ -4,15 +4,17 @@ using System.Collections;
 public class CommonLinkPrefab : MonoBehaviour {
 
     // 外部変数
-    public GameObject prefabObject; //!< リンクプレハブ
+    public GameObject prefabObject;     //!< リンクプレハブ
     public bool sameName = false;       //!< 同じ名前を許可するか
-    public bool destroyMine = true;   //!< 自身を削除するか
+    public bool destroyMine = true;     //!< 自身を削除するか
 
     // 内部データ
-    private static GameObject instanceObject;  //!< 生成されたオブジェクト
+    private GameObject instanceObject;  //!< 生成されたオブジェクト
 
     void Awake() {
-        CreateLinkPrefab();
+        if (instanceObject == null) {
+            CreateLinkPrefab();
+        }
         if (destroyMine) {
             Destroy(this.gameObject);
         }
@@ -33,18 +35,18 @@ public class CommonLinkPrefab : MonoBehaviour {
                 // あればそれを返す
                 GameObject alreadyGameObject = CommonUtil.SearchObjectChild(prefabObject.name, this.gameObject.transform.parent);
                 if (alreadyGameObject != null) {
+                    Debug.Log("既に同じオブジェクトが存在します");
                     return alreadyGameObject;
                 }
             }
             // リンクされたプレハブを生成
-            GameObject obj = GameObject.Instantiate(prefabObject) as GameObject;
-            obj.name = prefabObject.name;
-            obj.transform.parent = this.gameObject.transform.parent;
+            instanceObject = GameObject.Instantiate(prefabObject) as GameObject;
+            instanceObject.transform.parent = this.gameObject.transform.parent;
+            instanceObject.name = prefabObject.name;
 
             // 親を設置するとGrobalの値を参照してしまうようなので、ここでローカルな値に直してやる
-            obj.transform.position = new Vector3(prefabObject.transform.position.x, prefabObject.transform.position.y, prefabObject.transform.position.z);
-            obj.transform.localScale = new Vector3(prefabObject.transform.localScale.x, prefabObject.transform.localScale.y, prefabObject.transform.localScale.z);
-            instanceObject = obj;
+            instanceObject.transform.position = new Vector3(prefabObject.transform.position.x, prefabObject.transform.position.y, prefabObject.transform.position.z);
+            instanceObject.transform.localScale = new Vector3(prefabObject.transform.localScale.x, prefabObject.transform.localScale.y, prefabObject.transform.localScale.z);
         }
         return instanceObject;
     }
@@ -53,7 +55,7 @@ public class CommonLinkPrefab : MonoBehaviour {
     /// リンクされたプレハブを取得
     /// </summary>
     /// <returns>GameObject</returns>
-    private GameObject GetLinkPrefab() {
+    public GameObject GetLinkPrefab() {
         return prefabObject;
     }
 
@@ -61,7 +63,7 @@ public class CommonLinkPrefab : MonoBehaviour {
     /// 生成されたオブジェクトを取得
     /// </summary>
     /// <returns>GameObject</returns>
-    public static GameObject GetInstanceObject() {
+    public GameObject GetInstanceObject() {
         return instanceObject;
     }
 }

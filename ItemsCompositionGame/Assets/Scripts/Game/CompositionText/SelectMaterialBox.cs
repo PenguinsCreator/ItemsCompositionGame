@@ -16,12 +16,12 @@ public class SelectMaterialBox : MonoBehaviour {
     private Func<int, GameObject, bool> m_SelectFunc;
 
     /// <summary>
-    /// データをセット
+    /// 材料データをセット
     /// </summary>
     /// <param name="no">自身の番号</param>
     /// <param name="i_itemData">アイテムデータ</param>
     /// <param name="func">デリゲート関数</param>
-    public void SetData(int no, MasterDataControllerClass.ItemMaster i_itemData, Func<int, GameObject, bool> func) {
+    public void SetMaterialData(int no, MasterDataControllerClass.ItemMaster i_itemData, Func<int, GameObject, bool> func) {
         m_No = no;
         m_SelectFunc = func;
 
@@ -30,6 +30,23 @@ public class SelectMaterialBox : MonoBehaviour {
 
         m_material_icon.atlas       = ComposGameSys.GetUIAtlus(i_itemData.category);
         m_material_icon.spriteName  = i_itemData.icon;
+    }
+
+    /// <summary>
+    /// 器具データをセット
+    /// </summary>
+    /// <param name="no"></param>
+    /// <param name="i_coockwareData"></param>
+    /// <param name="func"></param>
+    public void SetCookwareData(int no, MasterDataControllerClass.CoockwareMaster i_coockwareData, Func<int, GameObject, bool> func) {
+        m_No = no;
+        m_SelectFunc = func;
+
+        m_name_label.text = i_coockwareData.name;
+        m_explain_label.text = i_coockwareData.name;
+
+        m_material_icon.atlas = ComposGameSys.GetUIAtlus(0);
+        m_material_icon.spriteName = i_coockwareData.icon;
     }
 
     /// <summary>
