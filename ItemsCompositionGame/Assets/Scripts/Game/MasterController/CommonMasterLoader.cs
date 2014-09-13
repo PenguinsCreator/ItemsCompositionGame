@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Text;
 using System.IO;
 using System.Linq;
 using System.Collections;
